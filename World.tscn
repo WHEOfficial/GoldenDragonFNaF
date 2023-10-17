@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwopn0xt0fayx"]
+[gd_scene load_steps=12 format=3 uid="uid://cwopn0xt0fayx"]
 
+[ext_resource type="Script" path="res://World.gd" id="1_dhbal"]
 [ext_resource type="Script" path="res://Player.gd" id="1_goyp0"]
 [ext_resource type="Texture2D" uid="uid://by4s0abmvhd0s" path="res://images/stop.png" id="2_lxw2p"]
+[ext_resource type="Script" path="res://Monitor.gd" id="3_y4npo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t8bii"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,7 +25,11 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysck2"]
 albedo_texture = ExtResource("2_lxw2p")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slqfp"]
+albedo_color = Color(1, 0, 0, 1)
+
 [node name="World" type="Node3D"]
+script = ExtResource("1_dhbal")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -77,3 +83,66 @@ transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, -8.25, 2.5, 0)
 use_collision = true
 size = Vector3(1, 1, 16)
 material = SubResource("StandardMaterial3D_ysck2")
+
+[node name="Floor2" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+use_collision = true
+size = Vector3(16, 0.002, 16)
+
+[node name="Wall5" type="CSGBox3D" parent="Map"]
+transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, 8.25, 2.5, -17)
+use_collision = true
+size = Vector3(1, 1, 16)
+material = SubResource("StandardMaterial3D_ysck2")
+
+[node name="Wall6" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, -8.75)
+use_collision = true
+size = Vector3(1, 1, 16)
+material = SubResource("StandardMaterial3D_ysck2")
+
+[node name="Wall7" type="CSGBox3D" parent="Map"]
+transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, -25.25)
+use_collision = true
+size = Vector3(1, 1, 16)
+material = SubResource("StandardMaterial3D_ysck2")
+
+[node name="Wall8" type="CSGBox3D" parent="Map"]
+transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, -8.25, 2.5, -17)
+use_collision = true
+size = Vector3(1, 1, 16)
+material = SubResource("StandardMaterial3D_ysck2")
+
+[node name="HIM" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -17)
+material = SubResource("StandardMaterial3D_slqfp")
+
+[node name="Cameras" type="Node3D" parent="Map"]
+
+[node name="Camera1" type="Camera3D" parent="Map/Cameras"]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 7.69381, 4.75, -9.30619)
+
+[node name="Monitor" type="CSGBox3D" parent="Map"]
+transform = Transform3D(2.1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 2, 8)
+script = ExtResource("3_y4npo")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CameraNotification" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -92.5
+offset_top = -80.0
+offset_right = 92.5
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 60
+text = "Press E to view cameras
+"
