@@ -1,5 +1,7 @@
 extends CSGBox3D
 
+signal camera_event
+
 @export var interactDistance = 3
 
 @onready var player = $"../../Player"
@@ -7,20 +9,22 @@ extends CSGBox3D
 @onready var cameras = $"../Cameras"
 
 var playerNearMonitor = false
+var inCamera = false
 var distance
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$AnimatedSprite3D.play()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	distance = position.distance_to(player.position)
 	playerNearMonitor = distance < interactDistance
-	cameraNotif.visible = playerNearMonitor
-	
-	if Input.is_action_pressed("interact") and playerNearMonitor:
-		player.get_node("Head/Camera3D").set_current(false)
-		cameras.get_node("Camera1").set_current(true)
+	cameraNotif.visible = playerNearMonitor and not inCamera
+	var cameraBool
+	if Input.is_action_just_pressed("interact"):
+		cameraBool = Input.is_action_just_pressed("interact") and playerNearMonitor and not inCamera
+		inCamera = cameraBool
+		player.get_node("Head/Camera3D").set_current(!cameraBool)
+		cameras.get_node("Camera1").set_current(cameraBool)
+		camera_event.emit(cameraBool)
