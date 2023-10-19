@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://n2p7qpmidkc"]
+
+[ext_resource type="Script" path="res://CameraNode.gd" id="1_gb2uc"]
+
+[node name="CameraNode" type="Node3D"]
+script = ExtResource("1_gb2uc")
+metadata/_edit_group_ = true
+
+[node name="DelayTime" type="Timer" parent="." groups=["camera_nodes"]]
+one_shot = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[connection signal="timeout" from="DelayTime" to="." method="_on_delay_time_timeout"]

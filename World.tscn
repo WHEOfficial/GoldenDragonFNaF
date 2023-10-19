@@ -1,17 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://cwopn0xt0fayx"]
+[gd_scene load_steps=14 format=3 uid="uid://cwopn0xt0fayx"]
 
 [ext_resource type="Script" path="res://World.gd" id="1_dhbal"]
 [ext_resource type="Script" path="res://Player.gd" id="1_goyp0"]
 [ext_resource type="Texture2D" uid="uid://by4s0abmvhd0s" path="res://images/stop.png" id="2_lxw2p"]
 [ext_resource type="Script" path="res://Monitor.gd" id="3_y4npo"]
-[ext_resource type="Texture2D" uid="uid://d37b7t8fqih37" path="res://images/static/static_1.png" id="5_i1saf"]
-[ext_resource type="Texture2D" uid="uid://bur4kclnlli65" path="res://images/static/static_2.png" id="6_4xlar"]
-[ext_resource type="Texture2D" uid="uid://dp56cveahykjc" path="res://images/static/static_3.png" id="7_mswnd"]
-[ext_resource type="Texture2D" uid="uid://cqeo6e4bcjkau" path="res://images/static/static_4.png" id="8_wd57q"]
-[ext_resource type="Texture2D" uid="uid://ctlu46sdipg5l" path="res://images/static/static_5.png" id="9_5s3j6"]
-[ext_resource type="Texture2D" uid="uid://b4l8tiw0wneke" path="res://images/static/static_6.png" id="10_inn87"]
-[ext_resource type="Texture2D" uid="uid://cvp3i6fb3fcb1" path="res://images/static/static_7.png" id="11_tyyx1"]
-[ext_resource type="Texture2D" uid="uid://r2y7qwq36nqg" path="res://images/static/static_8.png" id="12_8rxog"]
+[ext_resource type="PackedScene" uid="uid://n2p7qpmidkc" path="res://CameraNode.tscn" id="4_dmtcn"]
+[ext_resource type="SpriteFrames" uid="uid://dncbie15x5ad2" path="res://spriteframes/static.tres" id="6_47mv8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t8bii"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -35,38 +29,6 @@ albedo_texture = ExtResource("2_lxw2p")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slqfp"]
 albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_y6o56"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_i1saf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_4xlar")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_mswnd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_wd57q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_5s3j6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_inn87")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_tyyx1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_8rxog")
-}],
-"loop": true,
-"name": &"default",
-"speed": 60.0
-}]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_dhbal")
@@ -157,25 +119,19 @@ material = SubResource("StandardMaterial3D_ysck2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -17)
 material = SubResource("StandardMaterial3D_slqfp")
 
-[node name="Cameras" type="Node3D" parent="Map"]
-
-[node name="Camera1" type="Camera3D" parent="Map/Cameras"]
-transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 7.69381, 4.75, -9.30619)
-
 [node name="Monitor" type="CSGBox3D" parent="Map"]
 transform = Transform3D(2.1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 2, 8)
 script = ExtResource("3_y4npo")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Map/Monitor"]
+[node name="Static" type="AnimatedSprite3D" parent="Map/Monitor"]
 transform = Transform3D(1.565, 0, 0, 0, 2.78, 0, 0, 0, 1.62, 0, 0, -0.52)
 pixel_size = 0.0005
-sprite_frames = SubResource("SpriteFrames_y6o56")
-frame = 1
-frame_progress = 0.0668255
+sprite_frames = ExtResource("6_47mv8")
+autoplay = "default"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="CameraNotification" type="Label" parent="CanvasLayer"]
+[node name="CameraNotification" type="Label" parent="HUD"]
 visible = false
 anchors_preset = 7
 anchor_left = 0.5
@@ -193,5 +149,24 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 60
 text = "Press E to view cameras
 "
+
+[node name="Static" type="AnimatedSprite2D" parent="HUD"]
+visible = false
+modulate = Color(1, 1, 1, 0.12549)
+position = Vector2(960, 540.5)
+scale = Vector2(1.50156, 1.50972)
+sprite_frames = ExtResource("6_47mv8")
+autoplay = "default"
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="CameraNode" parent="Cameras" instance=ExtResource("4_dmtcn")]
+transform = Transform3D(0.707107, -0.353553, 0.612373, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612373, 7.69381, 4.75, 7.69381)
+
+[node name="SecurityCamera" type="Camera3D" parent="Cameras/CameraNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="CameraNode2" parent="Cameras" instance=ExtResource("4_dmtcn")]
+transform = Transform3D(0.707107, 0.353553, -0.612372, 5.58794e-09, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, -7.80619, 4.75, 7.69381)
 
 [connection signal="camera_event" from="Map/Monitor" to="Player" method="on_camera_event"]
