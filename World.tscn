@@ -164,7 +164,6 @@ autoplay = "default"
 transform = Transform3D(0.707107, -0.353553, 0.612373, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612373, 7.69381, 4.75, 7.69381)
 
 [node name="SecurityCamera" type="Camera3D" parent="Cameras/CameraNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CameraNode2" parent="Cameras" instance=ExtResource("4_dmtcn")]
 transform = Transform3D(0.707107, 0.353553, -0.612372, 5.58794e-09, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, -7.80619, 4.75, 7.69381)
