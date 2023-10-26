@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwopn0xt0fayx"]
+[gd_scene load_steps=16 format=3 uid="uid://cwopn0xt0fayx"]
 
 [ext_resource type="Script" path="res://World.gd" id="1_dhbal"]
 [ext_resource type="Script" path="res://Player.gd" id="1_goyp0"]
-[ext_resource type="Texture2D" uid="uid://by4s0abmvhd0s" path="res://images/stop.png" id="2_lxw2p"]
 [ext_resource type="Script" path="res://Monitor.gd" id="3_y4npo"]
 [ext_resource type="PackedScene" uid="uid://n2p7qpmidkc" path="res://CameraNode.tscn" id="4_dmtcn"]
+[ext_resource type="Script" path="res://MainHUD.gd" id="5_iskrf"]
 [ext_resource type="SpriteFrames" uid="uid://dncbie15x5ad2" path="res://spriteframes/static.tres" id="6_47mv8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t8bii"]
@@ -24,11 +24,17 @@ glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xe6yw"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysck2"]
-albedo_texture = ExtResource("2_lxw2p")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hps3g"]
+albedo_color = Color(0.427451, 0.258824, 0.0235294, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_slqfp"]
-albedo_color = Color(1, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xg4b5"]
+albedo_color = Color(0.337255, 0.47451, 0.160784, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pakx8"]
+albedo_color = Color(0.858824, 0.0235294, 0.301961, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2mqx"]
+albedo_color = Color(0.121569, 0.305882, 0.713726, 1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_dhbal")
@@ -58,69 +64,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6717, 0)
 
 [node name="Map" type="Node3D" parent="."]
 
-[node name="Floor" type="CSGBox3D" parent="Map"]
+[node name="Office" type="CSGBox3D" parent="Map"]
 use_collision = true
-size = Vector3(16, 0.002, 16)
+size = Vector3(7, 0.002, 9)
+material = SubResource("StandardMaterial3D_hps3g")
 
-[node name="Wall" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, 8.25, 2.5, 0)
+[node name="WestHall" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 10)
 use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
+size = Vector3(4, 0.002, 23)
+material = SubResource("StandardMaterial3D_xg4b5")
 
-[node name="Wall3" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, 8.25)
+[node name="Kitchen" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
 use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
+size = Vector3(4, 0.002, 11)
+material = SubResource("StandardMaterial3D_pakx8")
 
-[node name="Wall4" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, -8.25)
+[node name="SupplyCloset" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0, 25)
 use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
+size = Vector3(4, 0.002, 4)
+material = SubResource("StandardMaterial3D_pakx8")
 
-[node name="Wall2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, -8.25, 2.5, 0)
+[node name="Dining" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 33)
 use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
+size = Vector3(31, 0.002, 23)
+material = SubResource("StandardMaterial3D_k2mqx")
 
-[node name="Floor2" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17)
+[node name="EastHall" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, 10)
 use_collision = true
-size = Vector3(16, 0.002, 16)
-
-[node name="Wall5" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, 8.25, 2.5, -17)
-use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
-
-[node name="Wall6" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, -8.75)
-use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
-
-[node name="Wall7" type="CSGBox3D" parent="Map"]
-transform = Transform3D(-2.18557e-08, 0, -1, 0, 5, 0, 0.5, 0, -4.37114e-08, 0, 2.5, -25.25)
-use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
-
-[node name="Wall8" type="CSGBox3D" parent="Map"]
-transform = Transform3D(0.5, 0, 0, 0, 5, 0, 0, 0, 1, -8.25, 2.5, -17)
-use_collision = true
-size = Vector3(1, 1, 16)
-material = SubResource("StandardMaterial3D_ysck2")
-
-[node name="HIM" type="CSGBox3D" parent="Map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -17)
-material = SubResource("StandardMaterial3D_slqfp")
+size = Vector3(4, 0.002, 23)
+material = SubResource("StandardMaterial3D_xg4b5")
 
 [node name="Monitor" type="CSGBox3D" parent="Map"]
-transform = Transform3D(2.1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 2, 8)
+transform = Transform3D(2.1, 0, 0, 0, 1, 0, 0, 0, 0.2, 0, 2, 3.5)
 script = ExtResource("3_y4npo")
 
 [node name="Static" type="AnimatedSprite3D" parent="Map/Monitor"]
@@ -158,6 +138,38 @@ scale = Vector2(1.50156, 1.50972)
 sprite_frames = ExtResource("6_47mv8")
 autoplay = "default"
 
+[node name="MainHUD" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("5_iskrf")
+
+[node name="PowerLeft" type="Label" parent="HUD/MainHUD"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 949.0
+offset_right = 201.0
+offset_bottom = 1035.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 60
+text = "100%"
+
+[node name="Hour" type="Label" parent="HUD/MainHUD"]
+layout_mode = 0
+offset_left = 1614.0
+offset_top = 942.0
+offset_right = 1878.0
+offset_bottom = 1028.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 60
+text = "12:00 AM"
+
+[node name="Timer" type="Timer" parent="HUD/MainHUD/Hour"]
+autostart = true
+
 [node name="Cameras" type="Node3D" parent="."]
 
 [node name="CameraNode" parent="Cameras" instance=ExtResource("4_dmtcn")]
@@ -169,3 +181,4 @@ transform = Transform3D(0.707107, -0.353553, 0.612373, 0, 0.866026, 0.5, -0.7071
 transform = Transform3D(0.707107, 0.353553, -0.612372, 5.58794e-09, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, -7.80619, 4.75, 7.69381)
 
 [connection signal="camera_event" from="Map/Monitor" to="Player" method="on_camera_event"]
+[connection signal="timeout" from="HUD/MainHUD/Hour/Timer" to="HUD/MainHUD" method="_on_timer_timeout"]
