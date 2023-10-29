@@ -166,6 +166,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 7
 theme_override_font_sizes/font_size = 60
 text = "12:00 AM"
+horizontal_alignment = 2
 
 [node name="Timer" type="Timer" parent="HUD/MainHUD/Hour"]
 autostart = true
