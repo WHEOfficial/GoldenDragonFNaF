@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cwopn0xt0fayx"]
+[gd_scene load_steps=17 format=3 uid="uid://cwopn0xt0fayx"]
 
 [ext_resource type="Script" path="res://World.gd" id="1_dhbal"]
 [ext_resource type="Script" path="res://Player.gd" id="1_goyp0"]
+[ext_resource type="Texture2D" uid="uid://cpwrqlon76ryg" path="res://images/checkerboard.png" id="3_qrdyl"]
 [ext_resource type="Script" path="res://Monitor.gd" id="3_y4npo"]
 [ext_resource type="PackedScene" uid="uid://n2p7qpmidkc" path="res://CameraNode.tscn" id="4_dmtcn"]
 [ext_resource type="Script" path="res://MainHUD.gd" id="5_iskrf"]
@@ -25,7 +26,7 @@ glow_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xe6yw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hps3g"]
-albedo_color = Color(0.427451, 0.258824, 0.0235294, 1)
+albedo_texture = ExtResource("3_qrdyl")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xg4b5"]
 albedo_color = Color(0.337255, 0.47451, 0.160784, 1)
